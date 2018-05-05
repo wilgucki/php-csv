@@ -1,0 +1,24 @@
+{
+  "name": "wilgucki/php-csv",
+  "description": "Object oriented way of managing CSV files",
+  "keywords": ["php", "csv"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maciej Wilgucki",
+      "email": "mwilgucki@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Wilgucki\\PhpCsv\\": "src",
+      "Wilgucki\\PhpCsv\\Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.1"
+  }
+}
