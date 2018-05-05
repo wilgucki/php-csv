@@ -1,6 +1,6 @@
 # PHP-CSV
 
-PHP-CSV is a package that allows you to manage CSV file in an object-oriented way.
+PHP-CSV is a package that allows you to manage CSV files in an object-oriented way.
 
 ## Installation
 
@@ -38,7 +38,7 @@ First three arguments are exactly the same as fgetcsv function arguments describ
 Other two helps you define encoding - `$encodingFrom` is the encoding of CSV file and `$encodingTo` is encoding we get after file is read.
 
 To read data from the CSV file we can use two functions: `readLine` and `readAll`. The former will read and return current row while the latter will
-read whole CSV file and return it as an array of arrays (each row will be represented by an array).
+read whole CSV file and return it as an array of arrays (each line will be represented by an array).
 
 If the CSV file has a header row, you can use `getHeader` function. This function will take the first row from CSV file and use it to set array keys
 for `readLine` and `readAll` functions. This means that instead of numeric keys you can use labels defined in the first row.
