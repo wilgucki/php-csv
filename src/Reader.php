@@ -1,6 +1,6 @@
 <?php
-
 namespace Wilgucki\PhpCsv;
+
 use Wilgucki\PhpCsv\Exceptions\FileException;
 
 /**

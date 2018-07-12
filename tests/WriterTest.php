@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mwilgucki
- * Date: 5/5/18
- * Time: 5:46 PM
- */
+namespace Wilgucki\PhpCsv\Tests;
 
 use Wilgucki\PhpCsv\Writer;
 use PHPUnit\Framework\TestCase;

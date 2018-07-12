@@ -1,7 +1,6 @@
 <?php
 namespace Wilgucki\PhpCsv;
 
-
 /**
  * Class AbstractCsv
  * @package Wilgucki\PhpCsv

@@ -1,7 +1,6 @@
 <?php
 namespace Wilgucki\PhpCsv\Tests;
 
-
 use PHPUnit\Framework\TestCase;
 use Wilgucki\PhpCsv\Reader;
 
