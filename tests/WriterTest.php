@@ -15,7 +15,6 @@ class WriterTest extends TestCase
      */
     protected $writer;
 
-
     public function setUp()
     {
         $this->filepath = tempnam(sys_get_temp_dir(), md5(uniqid().time()));
