@@ -32,14 +32,14 @@ class WriterTest extends TestCase
     public function testCreate()
     {
         $csv = $this->writer->create($this->filepath);
-        $this->assertTrue($csv instanceof Writer);
+        static::assertTrue($csv instanceof Writer);
     }
 
     public function testWriteLine()
     {
         $this->writer->create($this->filepath);
         $result = $this->writer->writeLine(['aaa', 'bbb', 'ccc']);
-        $this->assertTrue(is_int($result));
+        static::assertTrue(is_int($result));
     }
 
     public function testWriteAll()
@@ -51,8 +51,8 @@ class WriterTest extends TestCase
         $this->writer->create($this->filepath);
         $this->writer->writeAll($data);
         $savedData = $this->writer->flush();
-        $this->assertContains('aaa,bbb,ccc', $savedData);
-        $this->assertContains('111,222,333', $savedData);
+        static::assertContains('aaa,bbb,ccc', $savedData);
+        static::assertContains('111,222,333', $savedData);
     }
 
     public function testFlush()
@@ -64,6 +64,6 @@ class WriterTest extends TestCase
         $this->writer->create($this->filepath);
         $this->writer->writeAll($data);
         $flushed = $this->writer->flush();
-        $this->assertEquals('aaa,bbb,ccc'.PHP_EOL.'111,222,333'.PHP_EOL, $flushed);
+        static::assertEquals('aaa,bbb,ccc'.PHP_EOL.'111,222,333'.PHP_EOL, $flushed);
     }
 }
