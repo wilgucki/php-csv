@@ -1,7 +1,9 @@
 <?php
 namespace Wilgucki\PhpCsv;
 
+use Wilgucki\PhpCsv\Converters\ConverterInterface;
 use Wilgucki\PhpCsv\Exceptions\FileException;
+use Wilgucki\PhpCsv\Exceptions\ReaderException;
 
 /**
  * CSV Reader class. Object oriented way of reading CSV files.
@@ -13,8 +15,24 @@ use Wilgucki\PhpCsv\Exceptions\FileException;
  */
 class Reader extends AbstractCsv
 {
-    protected $withHeader = false;
-    protected $header = [];
+    private $withHeader = false;
+    private $header = [];
+    private $converters = [];
+
+    /**
+     * Assigns converter to the specified column
+     *
+     * @param int $columnNo
+     * @param ConverterInterface $converter
+     * @throws ReaderException
+     */
+    public function addConverter(int $columnNo, ConverterInterface $converter)
+    {
+        if (isset($this->converters[$columnNo])) {
+            throw new ReaderException('Converter already assigned to column '.$columnNo);
+        }
+        $this->converters[$columnNo] = $converter;
+    }
 
     /**
      * Open CSV file for reading
@@ -55,7 +73,17 @@ class Reader extends AbstractCsv
      */
     public function readLine()
     {
-        $out = $this->read();
+        $line = $this->read();
+        $out = [];
+
+        foreach ($line as $columnNo => $value) {
+            if (isset($this->converters[$columnNo])) {
+                $out[$columnNo] = $this->converters[$columnNo]->convert($value);
+            } else {
+                $out[$columnNo] = $line[$columnNo];
+            }
+        }
+
         if ($this->withHeader && is_array($out)) {
             $out = array_combine($this->header, $out);
         }
