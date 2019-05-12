@@ -69,11 +69,15 @@ class Reader extends AbstractCsv
     /**
      * Read current line from CSV file
      *
-     * @return array
+     * @return array|false
      */
     public function readLine()
     {
         $line = $this->read();
+        if ($line === false) {
+            return $line;
+        }
+
         $out = [];
 
         foreach ($line as $columnNo => $value) {
