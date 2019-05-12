@@ -17,7 +17,8 @@ class ReaderTest extends TestCase
 
     public function setUp()
     {
-        $this->filepath = dirname(__FILE__).'assets/test1.csv';
+        $dir = __DIR__; // xdebug issue workaround
+        $this->filepath = $dir.'/assets/test1.csv';
     }
 
     public function testOpen()
