@@ -43,6 +43,21 @@ read whole CSV file and return it as an array of arrays (each line will be repre
 If the CSV file has a header row, you can use `getHeader` function. This function will take the first row from CSV file and use it to set array keys
 for `readLine` and `readAll` functions. This means that instead of numeric keys you can use labels defined in the first row.
 
+#### Converters
+
+Sometimes data available in csv file need to be converterd into more suitable format, e.g. convert dates into Carbon objects.
+Converters make this task much easier. All you need to do is to create converter object and specify the column you want to
+convert.
+
+```php
+$reader = new Reader();
+$reader->open('/path/to/file.csv');
+$reader->addConverter(3, new DateToCarbon());
+$data = $reader->readLine();
+```
+
+You can assigon only one converter per column.
+
 **Examples**
 
 CSV file example
