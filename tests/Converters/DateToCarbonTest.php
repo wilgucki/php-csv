@@ -7,24 +7,33 @@ use Wilgucki\PhpCsv\Converters\DateToCarbon;
 use Wilgucki\PhpCsv\Exceptions\ReaderException;
 use Wilgucki\PhpCsv\Reader;
 
-class DateFormatTest extends TestCase
+class DateToCarbonTest extends TestCase
 {
-    private $filepath;
-
-    public function setUp()
-    {
-        $dir = __DIR__;
-        $this->filepath = realpath($dir.'/../assets/test2.csv');
-    }
-
     public function testConvert()
     {
+        $dir = __DIR__;
+        $filepath = realpath($dir.'/../assets/test2.csv');
+
         $reader = new Reader();
         $reader->addConverter(0, new DateToCarbon());
-        $reader->open($this->filepath);
+        $reader->open($filepath);
         $csv = $reader->readLine();
         static::assertCount(3, $csv);
         static::assertInstanceOf(Carbon::class, $csv[0]);
+    }
+
+    public function testConvertWithHeader()
+    {
+        $dir = __DIR__;
+        $filepath = realpath($dir.'/../assets/test3.csv');
+
+        $reader = new Reader();
+        $reader->addConverter(0, new DateToCarbon());
+        $reader->open($filepath);
+        $reader->getHeader();
+        $csv = $reader->readLine();
+        static::assertCount(3, $csv);
+        static::assertInstanceOf(Carbon::class, $csv['Field 1']);
     }
 
     public function testMultipleConvertersOnSingleColumn()
@@ -32,10 +41,13 @@ class DateFormatTest extends TestCase
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('Converter already assigned to column 0');
 
+        $dir = __DIR__;
+        $filepath = realpath($dir.'/../assets/test2.csv');
+
         $reader = new Reader();
         $reader->addConverter(0, new DateToCarbon());
         $reader->addConverter(0, new DateToCarbon());
-        $reader->open($this->filepath);
+        $reader->open($filepath);
         $reader->readLine();
     }
 }
