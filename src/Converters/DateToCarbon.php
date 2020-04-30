@@ -5,7 +5,7 @@ use Carbon\Carbon;
 
 class DateToCarbon implements ConverterInterface
 {
-    public function convert($input)
+    public function convert(string $input)
     {
         return Carbon::parse($input);
     }

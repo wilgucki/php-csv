@@ -15,9 +15,9 @@ use Wilgucki\PhpCsv\Exceptions\ReaderException;
  */
 class Reader extends AbstractCsv
 {
-    private $withHeader = false;
-    private $header = [];
-    private $converters = [];
+    private bool $withHeader = false;
+    private ?array $header = [];
+    private array $converters = [];
 
     /**
      * Assigns converter to the specified column
@@ -42,7 +42,7 @@ class Reader extends AbstractCsv
      * @return $this
      * @throws FileException
      */
-    public function open($file, $mode = 'r+')
+    public function open(string $file, string $mode = 'r+'): self
     {
         if (!file_exists($file)) {
             throw new FileException('CSV file does not exist');
@@ -57,7 +57,7 @@ class Reader extends AbstractCsv
      *
      * @return array
      */
-    public function getHeader()
+    public function getHeader(): ?array
     {
         $this->withHeader = true;
         if (ftell($this->handle) == 0) {
@@ -99,7 +99,7 @@ class Reader extends AbstractCsv
      *
      * @return array
      */
-    public function readAll()
+    public function readAll(): array
     {
         $out = [];
         while (($row = $this->readLine()) !== false) {

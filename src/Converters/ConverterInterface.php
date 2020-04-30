@@ -3,5 +3,5 @@ namespace Wilgucki\PhpCsv\Converters;
 
 interface ConverterInterface
 {
-    public function convert($input);
+    public function convert(string $input);
 }
