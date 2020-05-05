@@ -47,7 +47,7 @@ class Writer extends AbstractCsv
      */
     public function writeAll(array $data): void
     {
-        foreach ($data as $i => $row) {
+        foreach ($data as $row) {
             $this->writeLine($row);
         }
     }
