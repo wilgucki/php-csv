@@ -1,5 +1,7 @@
 <?php
 namespace Wilgucki\PhpCsv\Exceptions;
 
-class FileException extends \Exception
+use Exception;
+
+class FileException extends Exception
 {}

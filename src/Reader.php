@@ -26,7 +26,7 @@ class Reader extends AbstractCsv
      * @param ConverterInterface $converter
      * @throws ReaderException
      */
-    public function addConverter(int $columnNo, ConverterInterface $converter)
+    public function addConverter(int $columnNo, ConverterInterface $converter): void
     {
         if (isset($this->converters[$columnNo])) {
             throw new ReaderException('Converter already assigned to column '.$columnNo);
@@ -60,7 +60,7 @@ class Reader extends AbstractCsv
     public function getHeader(): ?array
     {
         $this->withHeader = true;
-        if (ftell($this->handle) == 0) {
+        if (ftell($this->handle) === 0) {
             $this->header = $this->read();
         }
         return $this->header;

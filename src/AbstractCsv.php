@@ -40,16 +40,18 @@ abstract class AbstractCsv
      *
      * @param string $file File name with path to open
      * @param string $mode @link http://php.net/manual/en/function.fopen.php
+     * @return self
      */
-    public function open(string $file, string $mode)
+    public function open(string $file, string $mode): self
     {
         $this->handle = fopen($file, $mode);
+        return $this;
     }
 
     /**
      * Close file pointer
      */
-    public function close()
+    public function close(): void
     {
         fclose($this->handle);
     }

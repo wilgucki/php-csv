@@ -2,55 +2,48 @@
 namespace Wilgucki\PhpCsv\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Wilgucki\PhpCsv\Exceptions\FileException;
 use Wilgucki\PhpCsv\Reader;
 
 class ReaderTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    protected $filepath;
-    /**
-     * @var Reader
-     */
-    protected $reader;
+    protected string $filepath;
+    protected Reader $reader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $dir = __DIR__; // xdebug issue workaround
         $this->filepath = $dir.'/assets/test1.csv';
     }
 
-    public function testOpen()
+    public function testOpen(): void
     {
         $reader = new Reader();
         $csv = $reader->open($this->filepath);
-        static::assertTrue($csv instanceof Reader);
+        $this->assertInstanceOf(Reader::class, $csv);
     }
 
-    /**
-     * @expectedException \Wilgucki\PhpCsv\Exceptions\FileException
-     */
-    public function testOpenNonExistingFile()
+    public function testOpenNonExistingFile(): void
     {
-        $filepath = md5(uniqid().microtime()).'.csv';
+        $this->expectException(FileException::class);
+        $filepath = md5(uniqid('', true).microtime()).'.csv';
         $reader = new Reader();
         $reader->open($filepath);
     }
 
-    public function testGetHeader()
+    public function testGetHeader(): void
     {
         $reader = new Reader();
         $reader->open($this->filepath);
         $header = $reader->getHeader();
 
         static::assertCount(3, $header);
-        static::assertTrue(in_array('Field 1', $header));
-        static::assertTrue(in_array('Field 2', $header));
-        static::assertTrue(in_array('Field 3', $header ));
+        static::assertContains('Field 1', $header);
+        static::assertContains('Field 2', $header);
+        static::assertContains('Field 3', $header);
     }
 
-    public function testReadLine()
+    public function testReadLine(): void
     {
         $reader = new Reader();
         $reader->open($this->filepath);
@@ -62,7 +55,7 @@ class ReaderTest extends TestCase
         static::assertCount(3, $line);
     }
 
-    public function testReadSecondLine()
+    public function testReadSecondLine(): void
     {
         $reader = new Reader();
         $reader->open($this->filepath);
@@ -75,7 +68,7 @@ class ReaderTest extends TestCase
         static::assertCount(3, $line);
     }
 
-    public function testReadLineWithHeader()
+    public function testReadLineWithHeader(): void
     {
         $reader = new Reader();
         $reader->open($this->filepath);
@@ -91,19 +84,19 @@ class ReaderTest extends TestCase
         static::assertCount(3, $line);
     }
 
-    public function testReadAll()
+    public function testReadAll(): void
     {
         $reader = new Reader();
         $reader->open($this->filepath);
         $lines = $reader->readAll();
 
         static::assertCount(3, $lines);
-        static::assertTrue(is_array($lines[0]));
-        static::assertTrue(is_array($lines[1]));
-        static::assertTrue(is_array($lines[2]));
+        static::assertIsArray($lines[0]);
+        static::assertIsArray($lines[1]);
+        static::assertIsArray($lines[2]);
     }
 
-    public function testReadAllWithHeder()
+    public function testReadAllWithHeader(): void
     {
         $reader = new Reader();
         $reader->open($this->filepath);
@@ -111,7 +104,7 @@ class ReaderTest extends TestCase
         $lines = $reader->readAll();
 
         static::assertCount(2, $lines);
-        static::assertTrue(is_array($lines[0]));
-        static::assertTrue(is_array($lines[1]));
+        static::assertIsArray($lines[0]);
+        static::assertIsArray($lines[1]);
     }
 }

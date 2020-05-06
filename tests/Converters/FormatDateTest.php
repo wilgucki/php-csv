@@ -12,7 +12,7 @@ class FormatDateTest extends TestCase
      * @param string $expectedResult
      * @dataProvider datesDataProvider
      */
-    public function testConvert(string $date, string $expectedResult)
+    public function testConvert(string $date, string $expectedResult): void
     {
         $converter = new FormatDate('Y-m-d');
         $result = $converter->convert($date);
@@ -24,9 +24,9 @@ class FormatDateTest extends TestCase
      * @param string $date
      * @dataProvider invalidDatesDataProvider
      */
-    public function testConvertInvalidDate(string $date)
+    public function testConvertInvalidDate(string $date): void
     {
-        self::expectException(Exception::class);
+        $this->expectException(Exception::class);
         $converter = new FormatDate('Y-m-d');
         $converter->convert($date);
     }

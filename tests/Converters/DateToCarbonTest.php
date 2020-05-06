@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
+
 namespace Wilgucki\PhpCsv\Tests\Converters;
 
 use Carbon\Carbon;
@@ -9,7 +10,7 @@ use Wilgucki\PhpCsv\Reader;
 
 class DateToCarbonTest extends TestCase
 {
-    public function testConvert()
+    public function testConvert(): void
     {
         $dir = __DIR__;
         $filepath = realpath($dir.'/../assets/test2.csv');
@@ -22,7 +23,7 @@ class DateToCarbonTest extends TestCase
         static::assertInstanceOf(Carbon::class, $csv[0]);
     }
 
-    public function testConvertWithHeader()
+    public function testConvertWithHeader(): void
     {
         $dir = __DIR__;
         $filepath = realpath($dir.'/../assets/test3.csv');
@@ -36,7 +37,7 @@ class DateToCarbonTest extends TestCase
         static::assertInstanceOf(Carbon::class, $csv['Field 1']);
     }
 
-    public function testMultipleConvertersOnSingleColumn()
+    public function testMultipleConvertersOnSingleColumn(): void
     {
         $this->expectException(ReaderException::class);
         $this->expectExceptionMessage('Converter already assigned to column 0');

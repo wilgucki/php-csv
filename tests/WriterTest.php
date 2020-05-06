@@ -9,19 +9,19 @@ class WriterTest extends TestCase
     /**
      * @var string
      */
-    protected $filepath;
+    protected string $filepath;
     /**
      * @var Writer
      */
-    protected $writer;
+    protected Writer $writer;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->filepath = tempnam(sys_get_temp_dir(), md5(uniqid().time()));
+        $this->filepath = tempnam(sys_get_temp_dir(), md5(uniqid('', true).time()));
         $this->writer = new Writer();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         if (file_exists($this->filepath)) {
             unlink($this->filepath);
@@ -29,20 +29,20 @@ class WriterTest extends TestCase
         $this->writer->close();
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $csv = $this->writer->create($this->filepath);
-        static::assertTrue($csv instanceof Writer);
+        static::assertInstanceOf(Writer::class, $csv);
     }
 
-    public function testWriteLine()
+    public function testWriteLine(): void
     {
         $this->writer->create($this->filepath);
         $result = $this->writer->writeLine(['aaa', 'bbb', 'ccc']);
-        static::assertTrue(is_int($result));
+        static::assertIsInt($result);
     }
 
-    public function testWriteAll()
+    public function testWriteAll(): void
     {
         $data = [
             ['aaa', 'bbb', 'ccc'],
@@ -51,11 +51,11 @@ class WriterTest extends TestCase
         $this->writer->create($this->filepath);
         $this->writer->writeAll($data);
         $savedData = $this->writer->flush();
-        static::assertContains('aaa,bbb,ccc', $savedData);
-        static::assertContains('111,222,333', $savedData);
+        static::assertStringContainsString('aaa,bbb,ccc', $savedData);
+        static::assertStringContainsString('111,222,333', $savedData);
     }
 
-    public function testFlush()
+    public function testFlush(): void
     {
         $data = [
             ['aaa', 'bbb', 'ccc'],
