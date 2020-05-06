@@ -1,6 +1,6 @@
 # PHP-CSV
 
-PHP-CSV is a package that allows you to manage CSV files in an object-oriented way.
+PHP-CSV is a package that allows you to manage CSV files in object-oriented way.
 
 ## Installation
 
@@ -12,7 +12,7 @@ composer require wilgucki/php-csv
 
 ## Usage
 
-Both, Reader and Writer classes are easy to use. In fact the classes are just a wrappers for built-in PHP functions.
+Both, Reader and Writer classes are easy to use. In fact the classes are just wrappers for built-in PHP functions.
 
 ### Reader
 
@@ -35,7 +35,7 @@ Constructor accepts optional arguments you can use to describe your CSV file. Th
 
 First three arguments are exactly the same as fgetcsv function arguments described in the manual - http://php.net/manual/en/function.fgetcsv.php
 
-Other two helps you define encoding - `$encodingFrom` is the encoding of CSV file and `$encodingTo` is encoding we get after file is read.
+Other two helps you define encoding - `$encodingFrom` is the encoding of CSV file and `$encodingTo` is encoding we get after a file has been read.
 
 To read data from the CSV file we can use two functions: `readLine` and `readAll`. The former will read and return current row while the latter will
 read whole CSV file and return it as an array of arrays (each line will be represented by an array).
@@ -45,7 +45,7 @@ for `readLine` and `readAll` functions. This means that instead of numeric keys 
 
 #### Converters
 
-Sometimes data available in csv file need to be converterd into more suitable format, e.g. convert dates into Carbon objects.
+Sometimes data available in csv file need to be converted into more suitable format, e.g. convert dates into Carbon objects.
 Converters make this task much easier. All you need to do is to create converter object and specify the column you want to
 convert.
 
@@ -56,7 +56,7 @@ $reader->addConverter(3, new DateToCarbon());
 $data = $reader->readLine();
 ```
 
-You can assigon only one converter per column.
+You can assign only one converter per column.
 
 **Examples**
 
@@ -181,8 +181,8 @@ $reader->close();
 
 ### Writer
 
-For creating/updating CSV files you can use Writer class. If you want to create file, you need to provide only a writable path.
-For updating existing file, you have to use optional `$mode` argument. All available modes are described in the manual
+For creating/updating CSV files you can use Writer class. If you want to create a file, you need to provide only a writable path.
+For updating existing file, you have to use optional `$mode` argument. All available modes has been described in the manual
 (https://secure.php.net/manual/en/function.fopen.php) but only 'w' and 'a' values are usable in this case.
 
 ```php
@@ -195,7 +195,7 @@ $writer->create('/path/to/file.csv');
 $writer->create('/path/to/file.csv', 'a+');
 ```
 
-`Writer` contructor accepts the same arguments as the `Reader` constructor. Only difference is that `$encodingFrom` refers to the input encoding and the 
+`Writer` constructor accepts the same arguments as the `Reader` constructor. Only difference is that `$encodingFrom` refers to the input encoding and the 
 `$encodingTo` refers to CSV file encoding.
 
 There are two ways of writing CSV files - `writeLine` and `writeAll`. First method will write a single line to a CSV file, while the second method will
